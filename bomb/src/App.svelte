@@ -21,6 +21,9 @@
     
     function addOne(event) {
         score += 1
+    }
+
+    function flipp(event){
         show= !show
     }
 
@@ -36,8 +39,8 @@
     </nav>
     <div class="wrapper">
         {#each deck as card}
-        <article class="card">
-        <img src="img/{card.img}" on:click={addOne}>
+        <article class="card" on:click={addOne}>
+        <img classid="show" src="img/{card.img}" on:click={flipp}>
         </article>
         {/each}
 
@@ -70,14 +73,14 @@
 
                 img{
                     width: 100%;
-                    opacity: 1;
+                    opacity: 0;
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     flex-direction: column;
 
                     .show{
-                        opacity: 0;
+                        opacity: 1;
                     }
                 }
             }
