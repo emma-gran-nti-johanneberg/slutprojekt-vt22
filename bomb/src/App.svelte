@@ -19,55 +19,6 @@
 
     let deck = generateDeck()
 
-    /*
-    //function updateUI(){
-
-        document.querySelector('.wrapper').innerHTML = '';
-
-        // loopa igenom våra kort
-        deck.forEach(card => {
-    
-            let hidden = "";
-            if(card.hidden){
-                hidden = "hidden";
-            }
-
-            let el = `<article data-id="${card.id}" class="${hidden}">
-                <img src="img/${card.img}" alt="card">
-            </article>`;
-
-            document
-            .querySelector('.wrapper')
-            .insertAdjacentHTML('beforeend', el);
-
-        })
-    // generera HTML för varje kort
-    // Lyssna på klick på varje kort
-
-    }
-
-
-    // Detta ska generera och updatera decket med kort
-    let deck = generateDeck();
-    console.log(deck);
-    updateUI();
-
-    let card1 = null;
-
-    function flippCard(card){
-        card.classList.remove("hidden");
-    }
-
-    for(i=0; i<card.length; i++){
-        card[i].addEventListener('click', (e) => {
-            card1 = e.target.parentNode.getAttribute(`data-id`)
-            flippCard(e.target.parentNode)
-        }
-    }
-
-*/
-
-
 
 </script>
 
