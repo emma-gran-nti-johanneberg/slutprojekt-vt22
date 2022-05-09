@@ -8,13 +8,20 @@
             let card = {
                 id: i,
                 img: `char-${i}.png`,
-                bomb: false,
-                hidden: true,
             }
             //Hämtar korten 
             deck.push(card) 
         }
         return deck;
+    }
+
+    let show = false;
+    let bomb = false;
+    let score = 0;
+    
+    function addOne(event) {
+        score += 1
+        show= !show
     }
 
     let deck = generateDeck()
@@ -24,13 +31,13 @@
 
 <main>
     <nav>
-        <div class="time">Tiden ska stå här</div>
-        <div class="score">Här kommer poängen att stå</div> 
+        <div class="time">Tiden ska stå här </div>
+        <div class="score">Här kommer poängen att stå {score}</div> 
     </nav>
     <div class="wrapper">
         {#each deck as card}
         <article class="card">
-        <img src="img/{card.img}">
+        <img src="img/{card.img}" on:click={addOne}>
         </article>
         {/each}
 
@@ -39,11 +46,12 @@
 
 <style lang="scss">
     main{
-            height: 75vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+        height: 75vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
         nav {
             margin: 2rem;
         }
@@ -56,19 +64,25 @@
             gap: 1rem;
             align-items: center;
 
-            img{
-                width: 100%;
-                opacity: 1;
+            article{
+                border-color: red;
                 background-color: green;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
 
-                .hidden{
-                    opacity: 0;
+                img{
+                    width: 100%;
+                    opacity: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+
+                    .show{
+                        opacity: 0;
+                    }
                 }
             }
+
+            
             
         }
     }
