@@ -18,9 +18,16 @@
     let show = false;
     let bomb = false;
     let score = 0;
+    let result = "";
     
     function addOne(event) {
         score += 1
+    }
+
+    function bomb(card){
+        if (card.id == 9){
+            let result = score;
+        }
     }
 
     function flipp(event){
@@ -34,16 +41,14 @@
 
 <main>
     <nav>
-        <div class="time">Tiden ska stå här </div>
-        <div class="score">Här kommer poängen att stå {score}</div> 
+        <div class="score">Mina poäng: {score}</div> 
     </nav>
     <div class="wrapper">
         {#each deck as card}
         <article class="card" on:click={addOne}>
-        <img classid="show" src="img/{card.img}" on:click={flipp}>
+        <img class="show" src="img/{card.img}" on:click={flipp}>
         </article>
         {/each}
-
     </div>
 </main>
 
@@ -68,8 +73,7 @@
             align-items: center;
 
             article{
-                border-color: red;
-                background-color: green;
+                
 
                 img{
                     width: 100%;
@@ -78,6 +82,8 @@
                     justify-content: center;
                     align-items: center;
                     flex-direction: column;
+                    border-color: red;
+                    background-color: green;
 
                     .show{
                         opacity: 1;
