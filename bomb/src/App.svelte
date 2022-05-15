@@ -20,13 +20,14 @@
     let score = 0;
     let result = "";
     
-    function addOne(card, event) {
-        if (card.img == 'char-9.png' ){
+    function addOne(event) {
+        score += 1;
+        console.log(score);
+    }
+
+    function bomb(card, event){
+        if (card.img =='char-9.png'){
             let result = score;
-            score += 1
-        }
-        else{
-            score += 1
         }
     }
 
@@ -41,7 +42,7 @@
     </nav>
     <div class="wrapper">
         {#each deck as card}
-        <article class="card" on:click={addOne(card)}>
+        <article class="card" on:click={addOne} on:click={bomb(card)}>
         <img class:show ={show} on:click="{() => show = !show}" src="img/{card.img}">
         </article>
         {/each}
