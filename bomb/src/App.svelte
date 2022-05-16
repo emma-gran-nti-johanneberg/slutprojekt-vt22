@@ -7,6 +7,7 @@
 
             let card = {
                 id: i,
+                flipped:false,
                 img:`char-${i}.png`,
             }
             //Hämtar korten 
@@ -15,22 +16,38 @@
         return deck;
     }
 
-    let show = false;
-    let score = 0;
-    let result = "";
-    
-    function addOne(event) {
-        score += 1;
-        console.log(score);
-    }
-
-    function bomb(card, event){
-        if (card.img =='char-9.png'){
-            let result = score;
+    /*Funktion för att blanda kortleken*/
+    function shuffleArray(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
         }
     }
 
     let deck = generateDeck()
+    let new_deck = shuffleArray(deck);
+
+    let end = false;
+    let show = false;
+    let score = 0;
+    let result = "";
+    
+    function addOne() {
+        score += 1;
+    }
+
+    function bomb(card){ 
+        console.log(card)
+        deck[card.id-1].flipped=true;
+        if (card.id == 9){
+            let result = score;
+            let end=true;
+            console.log(result);
+        }
+    }
+
 
 
 </script>
@@ -41,13 +58,13 @@
     </nav>
     <div class="wrapper">
         {#each deck as card}
-        <article class="card" on:click={addOne} on:click={bomb(card)}>
+        <article class="card {card.flipped === true ? 'flipped' : ''}" on:click={addOne} on:click={bomb(card)}>
         <img class:show ={show} on:click="{() => show = !show}" src="img/{card.img}">
         </article>
         {/each}
     </div>
     
-    <aside class="end">
+    <aside class="{end === true ? 'end' : ''}">
         <h1>You lost</h1>
         <h2>Your score: {result} </h2>
     </aside>
@@ -63,7 +80,13 @@
         flex-direction: column;
 
         aside{
-            background-color: red;
+            opacity: 0;
+            &.end{
+                opacity: 1;
+                background-color: red;
+                width: 3rem;
+                height: 50vh;
+            }
         }
 
         .wrapper{
@@ -75,9 +98,11 @@
             align-items: center;
 
             article{
-                .show{
+                &.flipped{
+                    img{
                     opacity: 1;
                     border-style: solid;
+                    }
                 }
 
                 img{
