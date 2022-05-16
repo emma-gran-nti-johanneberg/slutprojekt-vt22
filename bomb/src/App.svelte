@@ -29,7 +29,10 @@
     let deck = generateDeck()
     let new_deck = shuffleArray(deck);
 
-    let end = false;
+    let lost = {
+        end: false,
+    }
+
     let show = false;
     let score = 0;
     let result = "";
@@ -39,7 +42,6 @@
     }
 
     function bomb(card){ 
-        console.log(card)
         deck[card.id-1].flipped=true;
         if (card.id == 9){
             let result = score;
@@ -64,7 +66,7 @@
         {/each}
     </div>
     
-    <aside class="{end === true ? 'end' : ''}">
+    <aside class= "{lost.end ===true ? 'end' : ''}" >
         <h1>You lost</h1>
         <h2>Your score: {result} </h2>
     </aside>
@@ -81,7 +83,7 @@
 
         aside{
             opacity: 0;
-            &.end{
+            .end{
                 opacity: 1;
                 background-color: red;
                 width: 3rem;
