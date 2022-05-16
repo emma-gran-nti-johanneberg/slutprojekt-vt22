@@ -16,7 +16,6 @@
     }
 
     let show = false;
-    let bomb = false;
     let score = 0;
     let result = "";
     
@@ -77,12 +76,13 @@
 
             article{
                 .show{
-                    opacity: 0;
+                    opacity: 1;
+                    border-style: solid;
                 }
 
                 img{
                     width: 100%;
-                    opacity: 1;
+                    opacity: 0;
                     display: flex;
                     justify-content: center;
                     align-items: center;
