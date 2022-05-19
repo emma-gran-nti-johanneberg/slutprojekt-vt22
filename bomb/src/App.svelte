@@ -4,8 +4,6 @@
         let deck = [];
         
         for(let i=1; i<10; i++){
-
-            let shuffle_number = shuffleArray(i)
             let card = {
                 id: i,
                 flipped:false,
@@ -30,10 +28,7 @@
     let deck = generateDeck()
     let new_deck = shuffleArray(deck);
 
-    let end = false;
-    let show = false;
     let score = 0;
-    let result = null;
 
     let state = {
         begin: "Nu kör vi!",
@@ -50,6 +45,7 @@
         if (card.id == 9){
             state.alive=state.bomb;
         }
+        
         deck[card.id-1].flipped=true;
         console.log(card.id)
         console.log(card.img)
@@ -65,9 +61,9 @@
     </nav>
     <div class="wrapper">
         {#each deck as card}
-        <article on:click={bomb(card)}>
-        <img class="card {card.flipped === true ? 'flipped' : ''}" on:click={addOne} class:show ={show} on:click="{() => show = !show}" src="img/{card.img}">
-        </article>
+            <article on:click={bomb(card)}>
+            <img class="card {card.flipped === true ? 'flipped' : ''}" on:click={addOne} src="img/{card.img}">
+            </article>
         {/each}
     </div>
     
@@ -98,10 +94,16 @@
             align-items: center;
 
             article{
-                
-                img.flipped{
-                opacity: 1;
                 border-style: solid;
+                border-radius: 5px;
+                background-color: green;
+                border: 3px;
+
+                img.flipped{
+                    opacity: 1;
+                    border-style: solid;
+                    border-radius: 5px;
+                    background-color: green;
                 }
                 
 
@@ -112,10 +114,6 @@
                     justify-content: center;
                     align-items: center;
                     flex-direction: column;
-                    border: 3px;
-                    border-style: solid;
-                    border-radius: 5px;
-                    background-color: green;
                 }
             }
             
