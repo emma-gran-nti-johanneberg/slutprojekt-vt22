@@ -5,6 +5,7 @@
         
         for(let i=1; i<10; i++){
 
+            let shuffle_number = shuffleArray(i)
             let card = {
                 id: i,
                 flipped:false,
@@ -29,25 +30,29 @@
     let deck = generateDeck()
     let new_deck = shuffleArray(deck);
 
-    let lost = {
-        end: false,
-    }
-
+    let end = false;
     let show = false;
     let score = 0;
-    let result = "";
+    let result = null;
+
+    let state = {
+        begin: "Nu kör vi!",
+        alive: "Det där var ingen bomb, så fortsätt",
+        bomb: "Det där däremot var en bomb, så nu är du död",        
+    }
     
     function addOne() {
         score += 1;
+        state.begin=state.alive;
     }
 
     function bomb(card){ 
-        deck[card.id-1].flipped=true;
         if (card.id == 9){
-            let result = score;
-            let end=true;
-            console.log(result);
+            state.alive=state.bomb;
         }
+        deck[card.id-1].flipped=true;
+        console.log(card.id)
+        console.log(card.img)
     }
 
 
@@ -60,52 +65,45 @@
     </nav>
     <div class="wrapper">
         {#each deck as card}
-        <article class="card {card.flipped === true ? 'flipped' : ''}" on:click={addOne} on:click={bomb(card)}>
-        <img class:show ={show} on:click="{() => show = !show}" src="img/{card.img}">
+        <article on:click={bomb(card)}>
+        <img class="card {card.flipped === true ? 'flipped' : ''}" on:click={addOne} class:show ={show} on:click="{() => show = !show}" src="img/{card.img}">
         </article>
         {/each}
     </div>
     
-    <aside class= "{lost.end ===true ? 'end' : ''}" >
-        <h1>You lost</h1>
-        <h2>Your score: {result} </h2>
+    <aside>
+        <h2>{state.begin}</h2>
     </aside>
 
 </main>
 
 <style lang="scss">
     main{
-        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
 
         aside{
-            opacity: 0;
-            .end{
-                opacity: 1;
-                background-color: red;
-                width: 3rem;
-                height: 50vh;
-            }
+            width: auto;
         }
+
 
         .wrapper{
             background-color: gray;
             padding: 2rem;
             display: grid;
-            grid-template-columns: repeat(3, 150px);
+            grid-template-columns: repeat(3, 125px);
             gap: 1rem;
             align-items: center;
 
             article{
-                &.flipped{
-                    img{
-                    opacity: 1;
-                    border-style: solid;
-                    }
+                
+                img.flipped{
+                opacity: 1;
+                border-style: solid;
                 }
+                
 
                 img{
                     width: 100%;
