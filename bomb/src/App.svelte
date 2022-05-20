@@ -16,17 +16,26 @@
     }
 
     /*Funktion för att blanda kortleken*/
-    function shuffleArray(array) {
+    function shuffleArray(array, positions) {
         for (var i = array.length - 1; i > 0; i--) {
             var j = Math.floor(Math.random() * (i + 1));
             var temp = array[i];
             array[i] = array[j];
             array[j] = temp;
+            positions[i] = j;
+            positions[j] = i;
+        }
+
+        for(let i = 0; i < array.length; i++) {
+            let id = array[i].id;
+            positions[id] = i;
         }
     }
 
-    let deck = generateDeck()
-    let new_deck = shuffleArray(deck);
+    let deck = generateDeck();
+    let positions = {};
+    let new_deck = shuffleArray(deck, positions);
+    
 
     let score = 0;
 
@@ -41,12 +50,12 @@
         state.begin=state.alive;
     }
 
-    function bomb(card){ 
+    function bomb(card, positions){ 
         if (card.id == 9){
             state.alive=state.bomb;
         }
         
-        deck[card.id-1].flipped=true;
+        deck[positions[card.id]].flipped=true;
         console.log(card.id)
         console.log(card.img)
     }
@@ -61,8 +70,9 @@
     </nav>
     <div class="wrapper">
         {#each deck as card}
-            <article on:click={bomb(card)}>
-            <img class="card {card.flipped === true ? 'flipped' : ''}" on:click={addOne} src="img/{card.img}">
+            <article on:click={bomb(card, positions)}>
+            <p>{card.id}</p>
+            <img class="{card.flipped ? 'flipped' : ''}" on:click={addOne()} src="img/{card.img}">
             </article>
         {/each}
     </div>
