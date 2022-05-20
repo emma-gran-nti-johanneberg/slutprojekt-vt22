@@ -52,15 +52,13 @@
 
     function bomb(card, positions){ 
         if (card.id == 9){
-            state.alive=state.bomb;
+            state.alive = state.bomb;
         }
         
         deck[positions[card.id]].flipped=true;
         console.log(card.id)
         console.log(card.img)
     }
-
-
 
 </script>
 
@@ -71,7 +69,6 @@
     <div class="wrapper">
         {#each deck as card}
             <article on:click={bomb(card, positions)}>
-            <p>{card.id}</p>
             <img class="{card.flipped ? 'flipped' : ''}" on:click={addOne()} src="img/{card.img}">
             </article>
         {/each}
